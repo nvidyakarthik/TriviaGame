@@ -1,50 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Trivia Game</title>
-    <script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
     <script>
-            $(document).ready(function() {
-            $('#btn_click').on('click', function() {
-            var url = 'index.html'; //please insert the url of the your current page here, we are assuming the url is 'index.php'          
-            $('#div1-wrapper').load(url + ' #div1'); //note: the space before #div1 is very important
-            });
-       });
-       function switchVisible() {
-            if (document.getElementById('Div1')) {
-
-                if (document.getElementById('Div1').style.display == 'none') {
-                    document.getElementById('Div1').style.display = 'block';
-                    document.getElementById('Div2').style.display = 'none';
+            var time=0;
+            var setIntervalId=0;
+            function count(){
+                time++;
+                
+                if(time<=10){
+                    $("#displayTime").html(time);
                 }
-                else {
-                    document.getElementById('Div1').style.display = 'none';
-                    document.getElementById('Div2').style.display = 'block';
+                else{
+                    clearInterval(setIntervalId);
+                }                
+                    
+
+            }
+            function displayQuestion(){
+                    
+                    setIntervalId=setInterval(count,1000);
+                    
+                    $("#question").html(questionBank.question1);
+                    for(i=0;i<questionBank.choices1.length;i++)
+                        $("#choices").append("<p>"+questionBank.choices1[i]+"</p>");
+                   // alert("test");
+
+            }
+        
+            function startQuiz() {
+                if (document.getElementById('btnDiv')) {
+
+                    if (document.getElementById('btnDiv').style.display == 'none') {
+                        document.getElementById('btnDiv').style.display = 'block';
+                        document.getElementById('questionDiv').style.display = 'none';
+                        
+
+                    }
+                    else {
+                        document.getElementById('btnDiv').style.display = 'none';
+                        document.getElementById('questionDiv').style.display = 'block';
+                        setTimeout(displayQuestion, 1000);
+                   
+            
+                    }
                 }
             }
-}
-      </script>   
-      <style>
-          #Div2 {
+            var questionBank = {
+                question1: "How many stomachs does a cow have?",
+                choices1: ["1", "2", "3", "4"],
+                answer1: "4"
+
+
+            }
+            $(document).ready(function () {
+                
+            });
+    
+    </script>
+    <style>
+        #questionDiv {
             display: none;
         }
-      </style>
+    </style>
 </head>
+
 <body>
 
     <h1>Totally Trivial Trivia!</h1>
-    <div id="Div1"><input id="Button1" type="button" value="Click" onclick="switchVisible();"/></div>
-<div id="Div2">Div 2</div>
+    <div id="btnDiv">
+        <input id="Button1" type="button" value="Start" onclick="startQuiz()" />
+    </div>
+    <div id="questionDiv">
+        <div id="time"></div>
+            <span id="displayTime"></span>
+        </div>
+        <div id="question"></div>
+        <div id="choices"></div>
+    </div>
 
 
-   
-      
-    
+
+
+
 </body>
+
 </html>
