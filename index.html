@@ -8,73 +8,77 @@
     <title>Trivia Game</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-    <script>
-            var time=10;
-            var setIntervalId=0;
-            function count(){
-                time--;
-                
-                if(time>=0){
-                    $("#displayTime").html(time);
+        <style>
+                .test{
+                    height:20px;
+                    width:600px;
+                    border:1px solid blanchedalmond;
+                    padding:20px;
+                    background: azure;
+                    
                 }
-                else{
-                    clearInterval(setIntervalId);
-                    $("#questionDiv").hide();
-                    $("#dispAnwer").html("Out of Time!!");
-                    $("#dispAnswer").append("<p>The correct answer was"+questionBank.answer1);
-                }                
-                    
-
-            }
-            function displayQuestion(){
-                    
-                    setIntervalId=setInterval(count,1000);
-                    
-                    $("#question").html(questionBank.question1);
-                    for(i=0;i<questionBank.choices1.length;i++)
-                        $("#choices").append("<p>"+questionBank.choices1[i]+"</p>");
-                   // alert("test");
-
-            }
+            </style>
         
-            function startQuiz() {
-                $("#btnDiv").hide();
-                setTimeout(displayQuestion, 1000);
-                //$("#questionDiv").show();
-               /* if (document.getElementById('btnDiv')) {
+    <script>
+        var time = 10;
+        var setIntervalId = 0;
+        function count() {
+            time--;
 
-                    if (document.getElementById('btnDiv').style.display == 'none') {
-                        document.getElementById('btnDiv').style.display = 'block';
-                        document.getElementById('questionDiv').style.display = 'none';
-                        
-
-                    }
-                    else {
-                        document.getElementById('btnDiv').style.display = 'none';
-                        document.getElementById('questionDiv').style.display = 'block';
-                       
-                   
-            
-                    }
-                }*/
+            if (time >= 0) {
+                $("#displayTime").html(time);
             }
-            var questionBank = {
-                question1: "How many stomachs does a cow have?",
-                choices1: ["1", "2", "3", "4"],
-                answer1: "4"
+            else {
+                clearInterval(setIntervalId);
+                $("#questionDiv").hide();
+                $("#dispAnwer").html("Out of Time!!");
+                $("#dispAnswer").append("<p>The correct answer was" + questionBank.answer1);
+            }
 
+
+        }
+        function checkAnswer(answerId){
+           
+            if(questionBank.choices1[answerId]!=questionBank.answer1){
+                clearInterval(setIntervalId);
+                $("#questionDiv").hide();
+                $("#dispAnswer").html("your answer war incorrect correct answer is: "+questionBank.answer1);
 
             }
-            $(document).ready(function () {
+            else{
+                alert(answerId);
+
+            }
+        }
                 
-            });
-    
+        function displayQuestion() {
+
+            setIntervalId = setInterval(count, 1000);
+
+            $("#question").html(questionBank.question1);
+            for (i = 0; i < questionBank.choices1.length; i++)
+                $("#choices").append("<div class='test'  onclick='checkAnswer("+i+")' id=A"+i+">" + questionBank.choices1[i] + "</div>");
+            // alert("test");
+
+        }
+        function startQuiz() { 
+            $("#btnDiv").hide();
+            setTimeout(displayQuestion, 1000);
+
+        }
+        var questionBank = {
+            question1: "How many stomachs does a cow have?",
+            choices1: ["1", "2", "3", "4"],
+            answer1: "4"
+
+
+        }
+        $(document).ready(function () {
+
+        });
+
     </script>
-    <style>
-       /* #questionDiv {
-            display: none;
-        }*/
-    </style>
+
 </head>
 
 <body>
@@ -85,11 +89,11 @@
     </div>
     <div id="questionDiv">
         <div id="time"></div>
-            <span id="displayTime"></span>
+        <span id="displayTime"></span>
         <div id="question"></div>
         <div id="choices"></div>
     </div>
-        
+
     </div>
     <div id="answerDiv">
         <div id="dispAnswer"></div>
