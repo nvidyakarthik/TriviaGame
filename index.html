@@ -9,16 +9,19 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script>
-            var time=0;
+            var time=10;
             var setIntervalId=0;
             function count(){
-                time++;
+                time--;
                 
-                if(time<=10){
+                if(time>=0){
                     $("#displayTime").html(time);
                 }
                 else{
                     clearInterval(setIntervalId);
+                    $("#questionDiv").hide();
+                    $("#dispAnwer").html("Out of Time!!");
+                    $("#dispAnswer").append("<p>The correct answer was"+questionBank.answer1);
                 }                
                     
 
@@ -35,7 +38,10 @@
             }
         
             function startQuiz() {
-                if (document.getElementById('btnDiv')) {
+                $("#btnDiv").hide();
+                setTimeout(displayQuestion, 1000);
+                //$("#questionDiv").show();
+               /* if (document.getElementById('btnDiv')) {
 
                     if (document.getElementById('btnDiv').style.display == 'none') {
                         document.getElementById('btnDiv').style.display = 'block';
@@ -46,11 +52,11 @@
                     else {
                         document.getElementById('btnDiv').style.display = 'none';
                         document.getElementById('questionDiv').style.display = 'block';
-                        setTimeout(displayQuestion, 1000);
+                       
                    
             
                     }
-                }
+                }*/
             }
             var questionBank = {
                 question1: "How many stomachs does a cow have?",
@@ -65,9 +71,9 @@
     
     </script>
     <style>
-        #questionDiv {
+       /* #questionDiv {
             display: none;
-        }
+        }*/
     </style>
 </head>
 
@@ -80,9 +86,13 @@
     <div id="questionDiv">
         <div id="time"></div>
             <span id="displayTime"></span>
-        </div>
         <div id="question"></div>
         <div id="choices"></div>
+    </div>
+        
+    </div>
+    <div id="answerDiv">
+        <div id="dispAnswer"></div>
     </div>
 
 
