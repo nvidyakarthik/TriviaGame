@@ -50,7 +50,7 @@ function countDown(questionId) {
 
 
     if (seconds >= 0) {
-        $("#displayTime").html(seconds);
+        $("#displayTime").html("Time remaining "+seconds+" Seconds");
         seconds--;
         //timerCheck=setTimeout(countDown(seconds),1000);
     }
@@ -128,9 +128,9 @@ function displayQuestion() {
         $("#questionDiv").show();
 
         seconds = 10;
-        setTimer = setInterval(function () {
+        /* setTimer = setInterval(function () {
             countDown(questionNum);
-        }, 1000);
+        }, 1000); */
         $("#question").html(questionBank[questionNum]["question"]);
         for (i = 0; i < questionBank[questionNum]["choices"].length; i++){
             $("#choices").append("<div class='test' onclick='checkAnswer(" + i + "," + questionNum + ")' id=A" + i + ">" + questionBank[questionNum].choices[i] + "</div>");
