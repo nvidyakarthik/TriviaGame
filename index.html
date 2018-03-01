@@ -8,71 +8,166 @@
     <title>Trivia Game</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-        <style>
-                .test{
-                    height:20px;
-                    width:600px;
-                    border:1px solid blanchedalmond;
-                    padding:20px;
-                    background: azure;
-                    
-                }
-            </style>
-        
-    <script>
-        var time = 10;
-        var setIntervalId = 0;
-        function count() {
-            time--;
+    <style>
+        .test {
+            height: 20px;
+            width: 600px;
+            border: 1px solid blanchedalmond;
+            padding: 20px;
+            background: azure;
 
-            if (time >= 0) {
-                $("#displayTime").html(time);
+        }
+    </style>
+
+    <script>
+        var seconds = 0;
+        var setIntervalId = 0;
+        var setTimer = 0;
+        var displayTime=0;
+        var questionNum=0;
+        var incorrect=0;
+        var correct=0;
+        var unanswered=0;
+        //var seconds=0;
+        function countDown(questionId) {
+
+            //var timerCheck=0; 
+
+
+            if (seconds >= 0) {
+                $("#displayTime").html(seconds);
+                seconds--;
+                //timerCheck=setTimeout(countDown(seconds),1000);
             }
             else {
-                clearInterval(setIntervalId);
-                $("#questionDiv").hide();
-                $("#dispAnwer").html("Out of Time!!");
-                $("#dispAnswer").append("<p>The correct answer was" + questionBank.answer1);
-            }
-
-
-        }
-        function checkAnswer(answerId){
-           
-            if(questionBank.choices1[answerId]!=questionBank.answer1){
-                clearInterval(setIntervalId);
-                $("#questionDiv").hide();
-                $("#dispAnswer").html("your answer war incorrect correct answer is: "+questionBank.answer1);
-
-            }
-            else{
-                alert(answerId);
-
-            }
-        }
                 
+                clearInterval(setTimer);
+                $("#questionDiv").hide();
+                $("#dispAnswer").html("Out of Time!!");
+                $("#dispAnswer").append("<p>The correct answer was" + questionBank[questionId].answer);
+                    unanswered++;
+                    questionNum++;   
+                
+                setIntervalId=setTimeout(function(){
+                    displayQuestion();
+                },3000);
+               
+                
+            }
+
+
+        }
+        function checkAnswer(answerId,questionId) {
+
+            if (questionBank[questionId].choices[answerId] != questionBank[questionId].answer) {
+                clearInterval(setTimer);
+                $("#questionDiv").hide();
+                $("#dispAnswer").html("your answer war incorrect correct answer is: " + questionBank[questionId].answer);
+                incorrect++;
+                questionNum++; 
+                setIntervalId=setTimeout(function(){
+                    displayQuestion();
+                },3000);
+
+            }
+            else {
+                clearInterval(setTimer);
+                $("#questionDiv").hide();
+                $("#dispAnswer").html("congratulations!!!");
+                $("#dispAnswer").append("<p>You answered correctly as " + questionBank[questionId].answer);
+                    correct++;
+                    questionNum++;   
+                
+                setIntervalId=setTimeout(function(){
+                    displayQuestion();
+                },3000);
+
+            }
+        }
+        function displayResults(){
+            $("#dispAnswer").empty();
+            $("#resultDiv").html('<p>All done,Here\'s how you did!!</p>');
+                $("#resultDiv").append('<p>correct Answers:<span id="correct">'+correct+'</span></p>');
+                $("#resultDiv").append('<p>incorrect Answers:<span id="incorrect">'+incorrect+'</span></p>');
+                $("#resultDiv").append('<p>unanswered:<span id="notanswered">'+unanswered+'</span></p>');
+                $("#resultDiv").append('<button type="submit" id="restartBtn" onclick="restartQuiz()">Start Over?</button>');
+                $("#resultDiv").show();
+
+        }
+
         function displayQuestion() {
 
-            setIntervalId = setInterval(count, 1000);
+            if (questionNum == 3|| questionNum>3) {
 
-            $("#question").html(questionBank.question1);
-            for (i = 0; i < questionBank.choices1.length; i++)
-                $("#choices").append("<div class='test'  onclick='checkAnswer("+i+")' id=A"+i+">" + questionBank.choices1[i] + "</div>");
-            // alert("test");
+                clearInterval(setTimer);
+                clearTimeout(setIntervalId);
+                displayResults();
+                
+               // return;
+
+            }
+            else {
+                clearTimeout(setIntervalId);
+                
+                $("#choices").empty();
+                $("#question").empty();
+                $("#dispAnswer").empty();
+                $("#questionDiv").show();
+               
+                seconds=10;
+                setTimer=setInterval(function(){
+                            countDown(questionNum);
+                            },1000);
+                $("#question").html(questionBank[questionNum]["question"]);
+                for (i = 0; i < questionBank[questionNum]["choices"].length; i++)
+                    // $("#choices").append("<div class='test'  onclick='checkAnswer("+i+")' id=A"+i+">" + questionBank[id]["choices"][i] + "</div>");
+                    $("#choices").append("<div class='test' onclick='checkAnswer("+i+","+questionNum+")' id=A" + i + ">" + questionBank[questionNum].choices[i] + "</div>");
+                console.log(questionBank[questionNum].question);
+              
+                console.log(questionNum);            
+}
+
 
         }
-        function startQuiz() { 
+        function startQuiz() {
+            
             $("#btnDiv").hide();
-            setTimeout(displayQuestion, 1000);
-
+           //$("#resultDiv").hide();
+           displayQuestion();
         }
-        var questionBank = {
-            question1: "How many stomachs does a cow have?",
-            choices1: ["1", "2", "3", "4"],
-            answer1: "4"
 
-
+        function restartQuiz() {
+            $("#resultDiv").empty();
+          //  $("#btnDiv").hide();
+            //$("#resultDiv").hide();
+            questionNum=0;
+            correct=0;
+            incorrect=0;
+            unanswered=0;
+           displayQuestion();
         }
+
+              
+            var questionBank = [
+            {
+                question: "How many stomachs does a cow have?",
+                choices: ["1", "2", "3", "4"],
+                answer: "4"
+            },
+            {
+                question: "What is the largest Frog?",
+                choices: ["Cane Toad", "North American Bullfrog", "African Goliath Frog", "Poison Dart Frog"],
+                answer: "African Goliath Frog"
+            },
+            {
+                question: "What is the longest snake?",
+                choices: ["Anaconda", "Reticulated python", "Green tree snake", "Corn snake"],
+                answer: "Reticulated python"
+            }
+
+
+
+        ]
         $(document).ready(function () {
 
         });
@@ -88,8 +183,8 @@
         <input id="Button1" type="button" value="Start" onclick="startQuiz()" />
     </div>
     <div id="questionDiv">
-        <div id="time"></div>
-        <span id="displayTime"></span>
+        <div id="time">Time Remaining: <span id="displayTime"></span>Seconds</div>
+       
         <div id="question"></div>
         <div id="choices"></div>
     </div>
@@ -97,6 +192,10 @@
     </div>
     <div id="answerDiv">
         <div id="dispAnswer"></div>
+    </div>
+    <div id="resultDiv">
+        
+
     </div>
 
 
