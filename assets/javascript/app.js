@@ -64,7 +64,7 @@ function countDown(questionId) {
        // $("#question").empty();
         $("#choices").empty();
         $("#dispAnswer").html("Out of Time!!");
-        $("#dispAnswer").append("<p>The correct answer was" + questionBank[questionId].answer);
+        $("#dispAnswer").append("<p>The correct answer was " + questionBank[questionId].answer);
         unanswered++;
         questionNum++;
 
@@ -103,7 +103,7 @@ $('#choices').on('click', '.choice', function(){
         clearInterval(setTimer);
         //$("#question").empty();
         $("#choices").empty();
-        $("#dispAnswer").html("C ongratulations!!!");
+        $("#dispAnswer").html("Congratulations!!!");
         $("#dispAnswer").append("<p>You answered correctly as " + questionBank[questionId].answer);
         correct++;
         questionNum++;
@@ -125,7 +125,7 @@ function displayResults() {
     $("#resultDiv").html('<p>Correct Answers :<span id="correct">' + correct + '</span></p>');
     $("#resultDiv").append('<p>Incorrect Answers :<span id="incorrect">' + incorrect + '</span></p>');
     $("#resultDiv").append('<p>Unanswered :<span id="notanswered">' + unanswered + '</span></p>');
-    $("#resultDiv").append('<button type="submit" id="restartBtn" onclick="restartQuiz()">Start Over?</button>');
+    $("#resultDiv").append('<button type="submit" id="restartBtn" class="btn btn-primary" onclick="restartQuiz()">Start Over?</button>');
     $("#resultDiv").show();
 }
 
