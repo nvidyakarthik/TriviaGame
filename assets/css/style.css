@@ -1,16 +1,80 @@
 .container {
-    width: 1165px;
-    background-color: azure;
+    max-width: 1165px;
+    height:535px;
     text-align: center;
-    height: 650px;
+    background-color: #ffffff;
+    
+    margin-top: 40px;
+    padding:20px;
+}
+
+body {
+    font-size: 20px;
+    background-image: url("../images/stripes.jpg");
+    background-size: cover;
+}
+
+h1 {
+    font-size: 45px;
+}
+
+
+
+#mainDiv {
+    margin-top: 100px;
+}
+
+#questionDiv {
+    height: 85px;
+}
+#answerDiv, #resultDiv{
+
+}
+
+#header {
+    background: #ffffff;
+    text-align: center;
+    width: 100%;
+    height: 75px;
+    border-bottom: 2px solid rgb(216, 212, 212);
+}
+
+/* #choices{
+    margin-top:75px;
+} */
+
+
+.choice {
+    font-size: 23px;
     margin-top: 20px;
+    margin-right: -125px;
+    padding:10px;
 }
-h1{
-    font-size:72px;
+
+.btn-primary {
+    color: #888282;
+    background-color: #d6cec3;
+    border-color: #9E9E9E;
 }
-.btn{
-    font-size:32px;
+
+#startBtn{
+    font-size: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
-#btnDiv{
-    margin-top: 100px;    
+
+/* .circleBase {
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 
+}*/
+/*
+#displayTime{
+    width: 100px;
+    height: 100px;
+    background: #f2ebe1;
+    border: 2px solid #bbb4aa;
+    padding: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
+  */

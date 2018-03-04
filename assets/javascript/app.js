@@ -28,14 +28,14 @@ var unanswered = 0;
 
 function startQuiz() {
 
-    $("#btnDiv").hide();
+    $("#startBtn").hide();
     //$("#resultDiv").hide();
     displayQuestion();
 }
 
 function restartQuiz() {
     $("#resultDiv").empty();
-    //  $("#btnDiv").hide();
+    //  $("#mainDiv").hide();
     //$("#resultDiv").hide();
     questionNum = 0;
     correct = 0;
@@ -44,20 +44,25 @@ function restartQuiz() {
     displayQuestion();
 }
 
+
 function countDown(questionId) {
 
     //var timerCheck=0; 
 
 
-    if (seconds >= 0) {
-        $("#displayTime").html("Time remaining "+seconds+" Seconds");
+    if (seconds > 0) {
+       $("#displayTime").html("Time remaining "+seconds+" Seconds");
+       //$("#displayTime").html(seconds);
         seconds--;
         //timerCheck=setTimeout(countDown(seconds),1000);
     }
     else {
 
         clearInterval(setTimer);
-        $("#questionDiv").hide();
+        $("#displayTime").html("Time remaining "+seconds+" Seconds");
+       // $("#displayTime").html(seconds);
+       // $("#question").empty();
+        $("#choices").empty();
         $("#dispAnswer").html("Out of Time!!");
         $("#dispAnswer").append("<p>The correct answer was" + questionBank[questionId].answer);
         unanswered++;
@@ -72,12 +77,21 @@ function countDown(questionId) {
 
 
 }
-function checkAnswer(answerId, questionId) {
+$('#choices').on('click', '.choice', function(){
+
+    
+    var answerId=$(this).attr("id");
+    var questionId=$(this).attr("questNo");
+    console.log(questionId);
+
+ 
+/*function checkAnswer(answerId, questionId) { */
 
     if (questionBank[questionId].choices[answerId] != questionBank[questionId].answer) {
         clearInterval(setTimer);
-        $("#questionDiv").hide();
-        $("#dispAnswer").html("your answer war incorrect correct answer is: " + questionBank[questionId].answer);
+        //$("#question").empty();
+        $("#choices").empty();
+        $("#dispAnswer").html("Your answer was incorrect the correct answer is: " + questionBank[questionId].answer);
         incorrect++;
         questionNum++;
         setIntervalId = setTimeout(function () {
@@ -87,8 +101,9 @@ function checkAnswer(answerId, questionId) {
     }
     else {
         clearInterval(setTimer);
-        $("#questionDiv").hide();
-        $("#dispAnswer").html("congratulations!!!");
+        //$("#question").empty();
+        $("#choices").empty();
+        $("#dispAnswer").html("C ongratulations!!!");
         $("#dispAnswer").append("<p>You answered correctly as " + questionBank[questionId].answer);
         correct++;
         questionNum++;
@@ -98,15 +113,18 @@ function checkAnswer(answerId, questionId) {
         }, 3000);
 
     }
-}
+});
 
 
 function displayResults() {
     $("#dispAnswer").empty();
-    $("#resultDiv").html('<p>All done,Here\'s how you did!!</p>');
-    $("#resultDiv").append('<p>correct Answers:<span id="correct">' + correct + '</span></p>');
-    $("#resultDiv").append('<p>incorrect Answers:<span id="incorrect">' + incorrect + '</span></p>');
-    $("#resultDiv").append('<p>unanswered:<span id="notanswered">' + unanswered + '</span></p>');
+    $("#displayTime").empty();
+    $("#question").html("Thankyou for taking the Quiz!!! Here is your results!!!");
+    
+    //$("#resultDiv").html('<p>All done,Here\'s how you did!!</p>');
+    $("#resultDiv").html('<p>Correct Answers :<span id="correct">' + correct + '</span></p>');
+    $("#resultDiv").append('<p>Incorrect Answers :<span id="incorrect">' + incorrect + '</span></p>');
+    $("#resultDiv").append('<p>Unanswered :<span id="notanswered">' + unanswered + '</span></p>');
     $("#resultDiv").append('<button type="submit" id="restartBtn" onclick="restartQuiz()">Start Over?</button>');
     $("#resultDiv").show();
 }
@@ -123,17 +141,20 @@ function displayQuestion() {
         clearTimeout(setIntervalId);
 
         $("#choices").empty();
-        $("#question").empty();
         $("#dispAnswer").empty();
-        $("#questionDiv").show();
-
         seconds = 10;
-        /* setTimer = setInterval(function () {
+        setTimer = setInterval(function () {
             countDown(questionNum);
-        }, 1000); */
-        $("#question").html(questionBank[questionNum]["question"]);
+        }, 1000); 
+        $("#question").html((questionNum+1)+"."+questionBank[questionNum]["question"]);
         for (i = 0; i < questionBank[questionNum]["choices"].length; i++){
-            $("#choices").append("<div class='test' onclick='checkAnswer(" + i + "," + questionNum + ")' id=A" + i + ">" + questionBank[questionNum].choices[i] + "</div>");
+            var childDiv=$("<button>");
+            childDiv.attr('id',i);
+            childDiv.attr('questNo',questionNum);
+            childDiv.attr('class','choice btn btn-primary col-xs-4 col-md-offset-2');
+            childDiv.html(questionBank[questionNum].choices[i]);
+            $("#choices").append(childDiv);          
+            
        
         }
         console.log(questionBank[questionNum].question);
