@@ -1,10 +1,5 @@
 var questionBank = [
-    {
-        question: "How many stomachs does a cow have?",
-        choices: ["1", "2", "3", "4"],
-        answer: "4"
-    },
-    {
+   {
         question: "What is the largest Frog?",
         choices: ["Cane Toad", "North American Bullfrog", "African Goliath Frog", "Poison Dart Frog"],
         answer: "African Goliath Frog"
@@ -13,7 +8,54 @@ var questionBank = [
         question: "What is the longest snake?",
         choices: ["Anaconda", "Reticulated python", "Green tree snake", "Corn snake"],
         answer: "Reticulated python"
+    },
+    {
+        question: "What is the fastest water animal?",
+        choices: ["Porpoise", "Sailfish", "Flying fish", "Tuna"],
+        answer: "Sailfish"
+    },
+    {
+        question: "What is the  flap of skin hanging off a moose's throat is called ?",
+        choices: ["wattle", "turkey neck", "bell", "skin condition"],
+        answer: "bell"
     }
+    ,
+    {
+        question: "What type of animal is a seahorse?",
+        choices: ["Crustacean", "Arachnid", "Fish", "Shell"],
+        answer: "Fish"
+    }
+    ,
+    {
+        question: "Which of the following dogs is the smallest?",
+        choices: ["Dachshund", "Poodle", "Pomeranian", "Chihuahua"],
+        answer: "Chihuahua"
+    }
+    ,
+    {
+        question: "What existing bird has the largest wingspan?",
+        choices: ["Stork", "Swan", "Condor", "Albatross"],
+        answer: "Albatross"
+    }
+    ,
+    {
+        question: "What is the biggest animal that has ever lived?",
+        choices: ["Blue whale", " African elephant", "Apatosaurus ", "Spinosaurus"],
+        answer: "Blue whale"
+    }
+    ,
+    {
+        question: "What animal lives the longest?",
+        choices: ["Ocean quahog", "Red sea urchin", "Galapagos tortois", "Rougheye rockfish"],
+        answer: "Ocean quahog"
+    }
+    ,
+    {
+        question: "What are female elephants called?",
+        choices: ["Mares", "Sows", "Cows", "Dams"],
+        answer: "Cows"
+    }
+   
 ]
 var seconds = 0;
 var setIntervalId = 0;
@@ -121,7 +163,7 @@ function displayResults() {
 //This function displays the question,sets the timer for the question and choices
 function displayQuestion() {
 
-    if (questionNum == 3 || questionNum > 3) {
+    if (questionNum == questionBank.length || questionNum > questionBank.length) {
 
         clearInterval(setTimer);
         clearTimeout(setIntervalId);
