@@ -117,7 +117,7 @@ $('#choices').on('click', '.choice', function(){
         clearInterval(setTimer);
         //$("#question").empty();
         $("#choices").empty();
-        $("#dispAnswer").html("Your answer was incorrect the correct answer is: " + questionBank[questionId].answer);
+        $("#dispAnswer").html("<p>Incorrect answer!</p><p>The correct answer was : " + questionBank[questionId].answer+"</p>");
         //tracking the incorrect answers here
         incorrect++;
         //This variable takes us to the next question set

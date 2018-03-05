@@ -14,6 +14,7 @@ body {
     background-image: url("../images/stripes.jpg");
     background-size: cover;
     color: #6d6868;
+    
 }
 
 h1 {
@@ -23,7 +24,8 @@ h1 {
     text-align: center;
     text-shadow: 2px 2px 4px #d4c2c2;
     color: #655a5a;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: 'Berkshire Swash', cursive;
+    letter-spacing: 5px;
 }
 
 #mainDiv {
@@ -69,6 +71,7 @@ h1 {
     border-color: #b49265;
     /*set the color you want here*/
 }
+
 /**************************************************************/
 
 #startBtn {
