@@ -16,8 +16,8 @@ var questionBank = [
     },
     {
         question: "What is the  flap of skin hanging off a moose's throat is called ?",
-        choices: ["wattle", "turkey neck", "bell", "skin condition"],
-        answer: "bell"
+        choices: ["Wattle", "Turkey neck", "Bell", "Skin condition"],
+        answer: "Bell"
     }
     ,
     {
